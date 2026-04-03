@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Admin Dashboard</h3>
+<div class="row g-3 mb-4">
+  <div class="col"><div class="card card-body">Users: {{ stats.users }}</div></div>
+  <div class="col"><div class="card card-body">Students: {{ stats.students }}</div></div>
+  <div class="col"><div class="card card-body">Lecturers: {{ stats.lecturers }}</div></div>
+  <div class="col"><div class="card card-body">Courses: {{ stats.courses }}</div></div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="card">
+      <div class="card-header">สร้างบัญชีผู้ใช้</div>
+      <div class="card-body">
+        <form method="post">
+          {{ form.hidden_tag() }}
+          {{ form.role.label(class='form-label') }}{{ form.role(class='form-select mb-2') }}
+          {{ form.email.label(class='form-label') }}{{ form.email(class='form-control mb-2') }}
+          {{ form.password.label(class='form-label') }}{{ form.password(class='form-control mb-2') }}
+          {{ form.code.label(class='form-label') }}{{ form.code(class='form-control mb-2') }}
+          {{ form.full_name.label(class='form-label') }}{{ form.full_name(class='form-control mb-2') }}
+          {{ form.department.label(class='form-label') }}{{ form.department(class='form-control mb-2') }}
+          {{ form.year.label(class='form-label') }}{{ form.year(class='form-control mb-2') }}
+          {{ form.submit(class='btn btn-primary') }}
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="card">
+      <div class="card-header">System Logs</div>
+      <ul class="list-group list-group-flush">
+        {% for log in logs %}
+        <li class="list-group-item">{{ log.created_at }} - {{ log.action }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>รายชื่อการเช็คชื่อ (Session {{ session.id }})</h3>
+<a class="btn btn-success btn-sm mb-2" href="{{ url_for('lecturer.export_csv', session_id=session.id) }}">Export CSV</a>
+<table class="table table-bordered">
+  <tr><th>รหัส</th><th>ชื่อ</th><th>เวลา</th><th>รูป</th><th>IP</th><th>UA</th><th>สถานะ</th><th>ผิดปกติ</th><th>จัดการ</th></tr>
+  {% for r in records %}
+  <tr class="{% if r.suspicious %}table-warning{% endif %}">
+    <td>{{ r.student.student_code }}</td><td>{{ r.student.full_name }}</td><td>{{ r.checkin_time }}</td>
+    <td><a target="_blank" href="/{{ r.photo_path }}">ดูภาพ</a></td><td>{{ r.ip_address }}</td><td>{{ r.user_agent[:25] }}...</td><td>{{ r.status }}</td><td>{{ r.suspicious }}</td>
+    <td>
+      <form method="post" action="{{ url_for('lecturer.set_attendance_status', attendance_id=r.id) }}">{{ csrf_token() }}
+        <select name="status" class="form-select form-select-sm mb-1"><option>pending</option><option>approved</option><option>rejected</option></select>
+        <button class="btn btn-sm btn-primary">บันทึก</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
