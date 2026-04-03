@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>จัดการรายวิชา</h3>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card"><div class="card-body">
+      <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.code.label(class='form-label') }}{{ form.code(class='form-control mb-2') }}
+        {{ form.name.label(class='form-label') }}{{ form.name(class='form-control mb-2') }}
+        {{ form.submit(class='btn btn-primary') }}
+      </form>
+    </div></div>
+  </div>
+  <div class="col-md-8">
+    <table class="table table-striped">
+      <tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th></th></tr>
+      {% for c in courses %}
+      <tr><td>{{ c.code }}</td><td>{{ c.name }}</td><td><a class="btn btn-sm btn-outline-primary" href="{{ url_for('lecturer.sessions', course_id=c.id) }}">คาบเรียน</a></td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>เช็คชื่อเข้าเรียน</h3>
+<div class="alert alert-info">วิชา {{ session.course.code }} | วันที่ {{ session.session_date }} | เวลา {{ session.start_time }}-{{ session.end_time }}</div>
+<form method="post" enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+  <div class="mb-2">{{ form.attendance_code.label(class='form-label') }}{{ form.attendance_code(class='form-control') }}</div>
+  <div class="mb-2">{{ form.checkin_photo.label(class='form-label') }}{{ form.checkin_photo(class='form-control', id='checkin_photo') }}</div>
+  <div class="mb-2"><img id="photo_preview" class="img-thumbnail d-none" style="max-height: 220px"></div>
+
+  <div class="row">
+    <div class="col">{{ form.latitude.label(class='form-label') }}{{ form.latitude(class='form-control', id='latitude') }}</div>
+    <div class="col">{{ form.longitude.label(class='form-label') }}{{ form.longitude(class='form-control', id='longitude') }}</div>
+  </div>
+  <button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="getGeoLocation()">ดึงพิกัดปัจจุบัน</button>
+  {{ form.submit(class='btn btn-primary mt-2 w-100') }}
+</form>
+
+<div class="mt-3">
+  <h6>Webcam Capture (Optional)</h6>
+  <video id="video" width="300" autoplay class="border"></video>
+  <canvas id="canvas" width="300" height="225" class="d-none"></canvas>
+  <button class="btn btn-sm btn-outline-primary" onclick="captureFromCamera()" type="button">Capture</button>
+</div>
+{% endblock %}

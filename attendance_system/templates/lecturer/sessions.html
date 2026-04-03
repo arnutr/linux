@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>คาบเรียน - {{ course.code }} {{ course.name }}</h3>
+<div class="row">
+  <div class="col-md-4"><div class="card"><div class="card-body">
+    <form method="post">
+      {{ form.hidden_tag() }}
+      {{ form.session_date.label(class='form-label') }}{{ form.session_date(class='form-control mb-2') }}
+      {{ form.start_time.label(class='form-label') }}{{ form.start_time(class='form-control mb-2') }}
+      {{ form.end_time.label(class='form-label') }}{{ form.end_time(class='form-control mb-2') }}
+      <div class="form-check mb-2">{{ form.require_gps(class='form-check-input') }} {{ form.require_gps.label(class='form-check-label') }}</div>
+      <div class="form-check mb-2">{{ form.require_face_photo(class='form-check-input') }} {{ form.require_face_photo.label(class='form-check-label') }}</div>
+      {{ form.allowed_ip_prefix.label(class='form-label') }}{{ form.allowed_ip_prefix(class='form-control mb-2') }}
+      {{ form.submit(class='btn btn-primary') }}
+    </form>
+  </div></div></div>
+  <div class="col-md-8">
+    <table class="table table-striped">
+      <tr><th>วันที่</th><th>เวลา</th><th>รหัส</th><th>QR Token</th><th>สถานะ</th></tr>
+      {% for s in sessions %}
+      <tr><td>{{ s.session_date }}</td><td>{{ s.start_time }} - {{ s.end_time }}</td><td>{{ s.attendance_code }}</td><td>{{ s.qr_token[:16] }}...</td><td>{{ s.status }}</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

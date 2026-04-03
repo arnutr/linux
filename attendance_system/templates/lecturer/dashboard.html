@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>แดชบอร์ดอาจารย์</h3>
+<a href="{{ url_for('lecturer.courses') }}" class="btn btn-primary mb-3">จัดการรายวิชา</a>
+<div class="card mb-3"><div class="card-header">คาบเรียนล่าสุด</div>
+  <div class="table-responsive">
+    <table class="table mb-0">
+      <tr><th>วิชา</th><th>วันที่</th><th>เวลา</th><th>สถานะ</th><th></th></tr>
+      {% for s in sessions %}
+      <tr>
+        <td>{{ s.course.code }}</td><td>{{ s.session_date }}</td><td>{{ s.start_time }} - {{ s.end_time }}</td><td>{{ s.status }}</td>
+        <td>
+          <form method="post" action="{{ url_for('lecturer.toggle_session', session_id=s.id) }}">{{ csrf_token() }}<button class="btn btn-sm btn-outline-primary">เปิด/ปิด</button></form>
+          <a href="{{ url_for('lecturer.attendance_list', session_id=s.id) }}" class="btn btn-sm btn-secondary">รายชื่อ</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+<div class="card"><div class="card-header">ข้อมูลน่าสงสัย</div>
+<ul class="list-group list-group-flush">
+{% for item in suspicious %}<li class="list-group-item">{{ item.created_at }} - {{ item.reason }}</li>{% endfor %}
+</ul></div>
+{% endblock %}

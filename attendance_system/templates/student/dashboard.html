@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>แดชบอร์ดนักศึกษา</h3>
+<a href="{{ url_for('student.profile') }}" class="btn btn-outline-primary btn-sm mb-3">โปรไฟล์</a>
+<div class="card mb-3"><div class="card-header">รายวิชาที่ลงทะเบียน</div>
+  <ul class="list-group list-group-flush">
+    {% for c in courses %}
+      <li class="list-group-item">{{ c.code }} - {{ c.name }}
+        {% for s in c.sessions %}
+          <a class="btn btn-sm btn-primary" href="{{ url_for('student.checkin', session_id=s.id) }}">เช็คชื่อ #{{ s.id }}</a>
+        {% endfor %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+<div class="card"><div class="card-header">ประวัติการเช็คชื่อ</div>
+<table class="table mb-0"><tr><th>วิชา</th><th>เวลา</th><th>สาย</th><th>สถานะ</th></tr>
+{% for r in records %}<tr><td>{{ r.session.course.code }}</td><td>{{ r.checkin_time }}</td><td>{{ r.is_late }}</td><td>{{ r.status }}</td></tr>{% endfor %}
+</table></div>
+{% endblock %}
