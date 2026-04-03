@@ -1,0 +1,4 @@
+body { background-color: #f6f8fb; }
+.card { border-radius: 0.9rem; }
+.list-group-item { font-weight: 500; }
+[data-bs-theme="dark"] body { background-color: #10151f; }
