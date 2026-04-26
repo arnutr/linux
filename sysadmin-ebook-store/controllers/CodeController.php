@@ -54,11 +54,12 @@ class CodeController
         require_admin();
         $codes = $this->codes->all();
 
-        header('Content-Type: text/csv');
+        header('Content-Type: text/csv; charset=UTF-8');
         header('Content-Disposition: attachment; filename="download_codes.csv"');
 
         $out = fopen('php://output', 'w');
-        fputcsv($out, ['Code', 'Book', 'Usage Limit', 'Used Count', 'Expires At']);
+        fwrite($out, "\xEF\xBB\xBF");
+        fputcsv($out, ['โค้ด', 'หนังสือ', 'จำนวนใช้งานสูงสุด', 'ใช้งานแล้ว', 'หมดอายุ']);
         foreach ($codes as $code) {
             fputcsv($out, [$code['code'], $code['title'], $code['usage_limit'], $code['used_count'], $code['expires_at']]);
         }

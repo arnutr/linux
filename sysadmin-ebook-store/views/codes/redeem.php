@@ -1,5 +1,13 @@
 <?php require __DIR__ . '/../layouts/header.php'; ?>
 <div class="container py-5" style="max-width:600px;">
+  <div class="alert alert-info border-0 shadow-sm rounded-4 mb-3">
+    <h6 class="mb-2">Frontpage: สำหรับสมาชิกดาวน์โหลด eBook</h6>
+    <p class="mb-2">ใส่โค้ดดาวน์โหลดที่ได้รับจากระบบ แล้วกดปุ่มตรวจสอบเพื่อดาวน์โหลดไฟล์หนังสือได้ทันที</p>
+    <ul class="mb-0 ps-3">
+      <li>รองรับโค้ดแบบครั้งเดียวหรือหลายครั้งตามสิทธิ์</li>
+      <li>หากโค้ดหมดอายุ ระบบจะแจ้งเตือนอัตโนมัติ</li>
+    </ul>
+  </div>
   <div class="card border-0 shadow-lg rounded-4">
     <div class="card-body p-4">
       <h3 class="mb-3">Redeem Your Download Code</h3>

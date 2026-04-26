@@ -32,6 +32,7 @@ $routes = [
     'members/delete' => fn() => $member->delete(),
 
     'books' => fn() => $book->index(),
+    'books/cover' => fn() => $book->cover(),
     'books/store' => fn() => $book->store(),
     'books/update' => fn() => $book->update(),
     'books/delete' => fn() => $book->delete(),
