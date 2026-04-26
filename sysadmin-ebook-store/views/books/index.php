@@ -6,8 +6,8 @@
   <div class="row g-3">
     <?php foreach ($books as $b): ?>
       <div class="col-md-4"><div class="card h-100 shadow-sm border-0 rounded-4">
-        <?php if ($b['cover_image']): ?><img class="book-cover" src="<?= base_url('../uploads/covers/' . $b['cover_image']) ?>" alt="cover"><?php endif; ?>
-        <div class="card-body"><h5><?= e($b['title']) ?></h5><p class="small text-muted"><?= e($b['description']) ?></p><strong>$<?= number_format((float)$b['price'], 2) ?></strong></div>
+        <?php if ($b['cover_image']): ?><img class="book-cover" src="<?= base_url('index.php?route=books/cover&file=' . urlencode($b['cover_image'])) ?>" alt="cover"><?php endif; ?>
+        <div class="card-body"><h5><?= e($b['title']) ?></h5><p class="small text-muted"><?= e($b['description']) ?></p><strong>฿<?= number_format((float)$b['price'], 2) ?></strong></div>
         <div class="card-footer bg-white border-0 d-flex justify-content-between">
           <button class="btn btn-sm btn-outline-primary js-edit-book" data-book='<?= e(json_encode($b)) ?>' data-bs-toggle="modal" data-bs-target="#editBookModal">Edit</button>
           <form method="post" action="<?= base_url('index.php?route=books/delete') ?>" onsubmit="return confirm('Delete this book?')">

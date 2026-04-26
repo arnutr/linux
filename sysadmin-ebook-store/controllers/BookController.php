@@ -19,6 +19,28 @@ class BookController
         View::render('books/index', ['books' => $this->books->all()]);
     }
 
+    public function cover(): void
+    {
+        require_admin();
+        $file = basename($_GET['file'] ?? '');
+        if ($file === '') {
+            http_response_code(404);
+            exit('Cover not found');
+        }
+
+        $path = rtrim(config('app.uploads_covers_path'), '/') . '/' . $file;
+        if (!is_file($path)) {
+            http_response_code(404);
+            exit('Cover not found');
+        }
+
+        $mime = mime_content_type($path) ?: 'application/octet-stream';
+        header('Content-Type: ' . $mime);
+        header('Content-Length: ' . filesize($path));
+        readfile($path);
+        exit;
+    }
+
     private function uploadFile(string $field, string $dir, array $allowed): ?string
     {
         if (empty($_FILES[$field]['name'])) {
